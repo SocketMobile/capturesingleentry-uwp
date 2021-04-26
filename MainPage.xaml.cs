@@ -23,12 +23,12 @@ namespace capturesingleentry_uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        //CaptureHelper capture;
+        CaptureHelper capture;
 
         public MainPage()
         {
             this.InitializeComponent();
-           // capture = new CaptureHelper();
+            capture = new CaptureHelper();
         }
     }
 }
