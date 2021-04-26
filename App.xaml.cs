@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace capturesingleentry_uwp
+namespace CaptureSingleEntryUWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -30,7 +30,7 @@ namespace capturesingleentry_uwp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            App.Current.RequestedTheme = ApplicationTheme.Light;
+          //  App.Current.RequestedTheme = ApplicationTheme.Light;
         }
 
         /// <summary>
