@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("capturesingleentry-uwp")]
+[assembly: AssemblyTitle("CaptureSingleEntryUWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("capturesingleentry-uwp")]
-[assembly: AssemblyCopyright("Copyright © 2021 Socket Mobile, Inc")]
+[assembly: AssemblyProduct("CaptureSingleEntryUWP")]
+[assembly: AssemblyCopyright("Copyright © Socket Mobile, Inc 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
