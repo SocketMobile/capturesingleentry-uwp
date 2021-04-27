@@ -1,22 +1,25 @@
-﻿using System;
+﻿///
+///  SingleEntry Capture for UWP Platform
+///
+/// Sample app that displays the scanner name
+/// and the decoded data in a list box
+/// 
+/// Follow the steps from 1 to 4
+/// ©2021 Socket Mobile, Inc.
+
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using SocketMobile.Capture;
 using System.Threading;
 using System.Timers;
 using System.Diagnostics;
 using Windows.UI.Core;
+
+// 1 - add the SocketMobile Capture namespace
+// Make sure Socket Companion service is installed and running
+using SocketMobile.Capture;
 
 namespace CaptureSingleEntryUWP
 {   
@@ -41,7 +44,7 @@ namespace CaptureSingleEntryUWP
         public static readonly DependencyProperty SdkVersionProperty =
             DependencyProperty.Register("SdkVersion", typeof(string), typeof(MainPage), new PropertyMetadata(string.Empty));
 
-        // Capture SDK client helper
+        // 2 - Create a CaptureHelper member
         CaptureHelper capture;
 
         // timer for opening Capture Helper 
@@ -52,16 +55,24 @@ namespace CaptureSingleEntryUWP
             this.InitializeComponent();
 
             ScannerName = "scannerid init";
-            SdkVersion = string.Empty; 
+            SdkVersion = string.Empty;
 
+            // 3 - instantiate and configure CaptureHelper
             capture = new CaptureHelper { ContextForEvents = SynchronizationContext.Current }; 
             capture.DeviceArrival += Capture_DeviceArrival;
             capture.DeviceRemoval += Capture_DeviceRemoval;
             capture.DecodedData += Capture_DecodedData;
+
+            // this is to handle the case of Socket Mobile Companion 
+            // being stopped for some reason
             capture.Terminate += Capture_Terminate;
 
             UpdateStatus();
 
+            // 4- Start opening the connection to Socket Mobile Companion
+            // which must be running. Here it is done with a timer
+            // because we restart this timer in case the Socket Mobile Companion service
+            // is not running when the app starts.
             openTimer = new System.Timers.Timer
             {
                 Interval = 200,     // milliseconds
@@ -127,6 +138,8 @@ namespace CaptureSingleEntryUWP
             }
         }
 
+        // received when something is wrong with Socket Mobile Companion
+        // or when aborting Capture Helper (result is no error in that case)
         private void Capture_Terminate(object sender, CaptureHelper.TerminateArgs e)
         {
             if (!SktErrors.SKTSUCCESS(e.Result))
@@ -135,6 +148,7 @@ namespace CaptureSingleEntryUWP
             }
         }
 
+        // received when a barcode has been decoded correctly
         private void Capture_DecodedData(object sender, CaptureHelper.DecodedDataArgs e)
         {
             string data = $"{e.DecodedData.SymbologyName} : {e.DecodedData.DataToUTF8String}";
@@ -142,11 +156,13 @@ namespace CaptureSingleEntryUWP
             DataList.Items.Add(data);
         }
 
+        // received when a scanner disconnects
         private void Capture_DeviceRemoval(object sender, CaptureHelper.DeviceArgs e)
         {
             UpdateStatus();
         }
 
+        // received when a scanner connects
         private void Capture_DeviceArrival(object sender, CaptureHelper.DeviceArgs e)
         {
             UpdateStatus();
