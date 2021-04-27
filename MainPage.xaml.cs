@@ -1,5 +1,5 @@
 ﻿///
-///  SingleEntry Capture for UWP Platform
+///  SingleEntry using Capture for UWP Platform
 ///
 /// Sample app that displays the scanner name
 /// and the decoded data in a list box

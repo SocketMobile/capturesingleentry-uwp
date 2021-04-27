@@ -7,9 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="CaptureSingleEntryUWP.MainPage"
+    Width="800"
+    Height="800"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-
     
     <Grid>
         <StackPanel>
@@ -18,7 +18,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom" 
                 FontSize="32"
-                Padding="0,0,0,8">
+                Padding="0,24,0,8">
 
             </TextBlock>
 
@@ -29,13 +29,17 @@
             </ListView.ItemTemplate>-->
             
             <ListView
-                x:Name="DataList"               
-                Height="600">
+                x:Name="DataList"
+                BorderBrush="DarkGray"
+                BorderThickness="2"
+                Width="800"
+                Height="400">
             </ListView>
             <Button
+                Margin="0,24,0,0"
                 Click="OnClearButtonClick"
                 HorizontalAlignment="Center"
-                FontSize="24"
+                FontSize="24"                
                 Width="84">
                 Clear              
             </Button>
@@ -47,18 +51,19 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>                 
-                    <HyperlinkButton     
+                    <HyperlinkButton 
+                        HorizontalAlignment="Center"
                         Grid.Column="0"
-                        Content="Socket Github" 
-                        NavigateUri="https://github.com/SocketMobile"
-                        FontSize="24">
+                        Content="©2021 Socket Mobile, Inc." 
+                        NavigateUri="https://www.SocketMobile.com"
+                        FontSize="20">
                     </HyperlinkButton>
 
                     <TextBlock Grid.Row="1" Grid.Column="1"
                         Text="{x:Bind SdkVersion, Mode=OneWay}"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center" 
-                        FontSize="24">
+                        FontSize="20">
                     </TextBlock>       
             </Grid>
 
