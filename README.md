@@ -1,7 +1,6 @@
 # Single Entry using Capture SDK
 
-
-
+![](screenshot.png)
 
 ## Introduction
 This is a sample application to show how to use the Socket Mobile Capture SDK.
@@ -46,4 +45,4 @@ Opening Capture requires some application information, such as the application I
 To set these up go to the Socket Mobile developer portal register and for an account. 
 
 ## Documentation
-For more information please consult the Capture SDK documentation at: https://docs.socketmobile.com/main/en/captureApi.html
+For more information please consult the Capture SDK documentation at: https://docs.socketmobile.com/capture/csharp/en/latest/
