@@ -32,7 +32,6 @@ namespace CaptureSingleEntryUWP
         public static readonly DependencyProperty ScannerNameProperty =
             DependencyProperty.Register("ScannerName", typeof(string), typeof(MainPage), new PropertyMetadata(string.Empty));
 
-
         public string SdkVersion
         {
             get { return (string)GetValue(SdkVersionProperty); }
@@ -65,8 +64,8 @@ namespace CaptureSingleEntryUWP
 
             openTimer = new System.Timers.Timer
             {
-                Interval = 200, // milliseconds
-                AutoReset = false, // one shot
+                Interval = 200,     // milliseconds
+                AutoReset = false,  // one shot
                 Enabled = true,
             };
             openTimer.Elapsed += OpenTimerTick;
@@ -77,7 +76,6 @@ namespace CaptureSingleEntryUWP
         {
             openTimer.Stop();
 
-            string msg;
             try
             {
                 long Result = await capture.OpenAsync(
@@ -90,41 +88,42 @@ namespace CaptureSingleEntryUWP
                     CaptureHelper.VersionResult version = await capture.GetCaptureVersionAsync();
                     if (version.IsSuccessful())
                     {
-                        // Note: timer does not run on UI thread, so must switch to UI thread to update control
+                        // Note: timer does not run on UI thread, so must switch to UI thread to update UI control
                         await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             SdkVersion = $"Capture version: {version.ToStringVersion()}";
                         });
-
-                        msg = $"Capture version: {version.ToStringVersion()}";
-                        Debug.WriteLine($"sdk version {msg}");
                     }
                 }
                 else
                 {
-                    //ScannerId = "Unable to connect to Capture Service";
-                    msg = "Unable to connect to Capture Service";
-                    Debug.WriteLine($"sdk version {msg}");
-
-                    /*                DialogResult dialogResult = MessageBox.Show(
-                                        "Unable to open Capture, is Socket Mobile Companion Service running?",
-                                        "Error",
-                                        MessageBoxButtons.RetryCancel,
-                                        MessageBoxIcon.Warning);
-                                    if (dialogResult == DialogResult.Retry)
-                                    {
-                                        timerOpenCapture.Start();
-                                    }
-                                    else
-                                    {
-                                        Close();
-                                    }*/
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        Debug.WriteLine($"Capture OpenAsync failed. Result code: {Result}");
+                        ShowOpenFailDialog();
+                    });
                 }
-
             } 
             catch (Exception ex)
             {
-                Debug.WriteLine($"sdk version exception {ex.Message}");
+                Debug.WriteLine($"OpenTimerTick exception {ex.Message}");
+            }
+        }
+
+        private async void ShowOpenFailDialog()
+        {
+            ContentDialog openFailDialog = new ContentDialog
+            {
+                Title = "Capture Service Open Error",
+                Content = "Cannot open Capture service. Is Socket Mobile Companion Service running?",
+                PrimaryButtonText = "Retry",
+                CloseButtonText = "Cancel"
+            };
+
+            ContentDialogResult result = await openFailDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                openTimer.Start();
             }
         }
 
@@ -138,7 +137,8 @@ namespace CaptureSingleEntryUWP
 
         private void Capture_DecodedData(object sender, CaptureHelper.DecodedDataArgs e)
         {
-            string data = $"{e.DecodedData.SymbologyName}: {e.DecodedData.DataToUTF8String}";
+            string data = $"{e.DecodedData.SymbologyName} : {e.DecodedData.DataToUTF8String}";
+            Debug.WriteLine($"scanned data: {data}");
             DataList.Items.Add(data);
         }
 

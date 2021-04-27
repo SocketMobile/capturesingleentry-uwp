@@ -30,7 +30,7 @@ namespace CaptureSingleEntryUWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-          //  App.Current.RequestedTheme = ApplicationTheme.Light;
+            App.Current.RequestedTheme = ApplicationTheme.Light;
         }
 
         /// <summary>
