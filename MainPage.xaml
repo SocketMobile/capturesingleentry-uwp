@@ -17,24 +17,24 @@
                 Text="{x:Bind ScannerName, Mode=OneWay}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom" 
-                FontSize="32"
+                FontSize="24"
                 Padding="0,24,0,8">
-
             </TextBlock>
-
-            <!--<ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>-->
             
             <ListView
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
                 x:Name="DataList"
                 BorderBrush="DarkGray"
                 BorderThickness="2"
                 Width="800"
                 Height="400">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="FontSize" Value="24"></Setter>                
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
+            
             <Button
                 Margin="0,24,0,0"
                 Click="OnClearButtonClick"
@@ -43,6 +43,7 @@
                 Width="84">
                 Clear              
             </Button>
+            
             <Grid x:Name="bottomToolbar">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -50,21 +51,22 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>                 
-                    <HyperlinkButton 
-                        HorizontalAlignment="Center"
-                        Grid.Column="0"
-                        Content="©2021 Socket Mobile, Inc." 
-                        NavigateUri="https://www.SocketMobile.com"
-                        FontSize="20">
-                    </HyperlinkButton>
+                </Grid.RowDefinitions> 
+                
+                <HyperlinkButton 
+                    HorizontalAlignment="Center"
+                    Grid.Column="0"
+                    Content="©2021 Socket Mobile, Inc" 
+                    NavigateUri="https://www.SocketMobile.com"
+                    FontSize="20">
+                </HyperlinkButton>
 
-                    <TextBlock Grid.Row="1" Grid.Column="1"
-                        Text="{x:Bind SdkVersion, Mode=OneWay}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" 
-                        FontSize="20">
-                    </TextBlock>       
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                    Text="{x:Bind SdkVersion, Mode=OneWay}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" 
+                    FontSize="20">
+                </TextBlock>       
             </Grid>
 
         </StackPanel>

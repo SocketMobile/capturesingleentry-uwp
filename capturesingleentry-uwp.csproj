@@ -118,10 +118,8 @@
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-	  
-    <Compile Include="CaptureHelper.cs" />
-	  
+    </Compile>	  
+    <Compile Include="CaptureHelper.cs" />	  
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -180,13 +178,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-  <!-- DA ADDED next 2 items 
-    <PackageReference Include="NETStandard.Library">
-      <Version>2.0.3</Version>
-    </PackageReference>-->
-    <PackageReference Include="Newtonsoft.Json">
+    <!-- <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
-    </PackageReference>
+    </PackageReference> -->
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.11</Version>
     </PackageReference>
