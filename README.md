@@ -1,7 +1,6 @@
 # Single Entry using Capture SDK
 
-[screenshot]()
-
+![](screenshot.png)
 
 ## Introduction
 This is a sample application to show how to use the Socket Mobile Capture SDK.
